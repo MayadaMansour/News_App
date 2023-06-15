@@ -16,15 +16,7 @@ class BusinessScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         var list = NewsCubit.get(context).business;
-        return ConditionalBuilder(
-          condition: state is! NewsGetLoadingState,
-          builder: (context)=> ListView.separated(
-            physics: BouncingScrollPhysics(),
-            itemBuilder:(context,index) => defaultNewsItem(list[index]),
-            itemCount: 10,
-            separatorBuilder: ( context, index)=>myDivider(),),
-          fallback:(context)=>Center(
-            child: CircularProgressIndicator(),),);
+        return articalBuilder(list,context);
       },
     );
   }

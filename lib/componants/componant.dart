@@ -1,8 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-Widget defaultNewsItem(article) {
+Widget defaultNewsItem(article,context) {
   return Padding(
     padding: const EdgeInsets.all(20.0),
     child: Row(
@@ -24,7 +25,7 @@ Widget defaultNewsItem(article) {
               );
             },
             placeholder: (context, url) => CircularProgressIndicator(),
-            errorWidget: (context, url, error) => Icon(Icons.error),
+            errorWidget: (context, url, error) => Icon(Icons.error,color: Colors.deepOrange,),
           ),
         ),
         SizedBox(
@@ -43,14 +44,11 @@ Widget defaultNewsItem(article) {
                   '${article['title']}',
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18,
-                      color: Colors.deepOrange),
+                  style: Theme.of(context).textTheme.bodyText1,
                 )),
                 Text(
                   "${article['publishedAt']}",
-                  style: TextStyle(color: Colors.grey),
+                  style: TextStyle(color: Colors.white),
                 ),
               ],
             ),
@@ -71,3 +69,13 @@ Widget myDivider() => Padding(
         color: Colors.grey[300],
       ),
     );
+
+Widget articalBuilder(list,context)=> ConditionalBuilder(
+  condition: list.length>0,
+  builder: (context)=> ListView.separated(
+    physics: BouncingScrollPhysics(),
+    itemBuilder:(context,index) => defaultNewsItem(list[index],context),
+    itemCount: 10,
+    separatorBuilder: ( context, index)=>myDivider(),),
+  fallback:(context)=>Center(
+    child: CircularProgressIndicator(),),);
