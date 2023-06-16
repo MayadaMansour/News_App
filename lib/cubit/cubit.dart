@@ -71,13 +71,9 @@ class NewsCubit extends Cubit<NewsStates>
       },
     ).then((value)
     {
-      print(value.data['articles'][0]['title']);
       business = value.data['articles'];
-      //print(business[0]['title']);
-
       emit(NewsGetBusinessSucessState());
     }).catchError((error){
-      //print(error.toString());
       emit(NewsGetBusinessErrorState(error.toString()));
     });
   }
@@ -87,7 +83,6 @@ class NewsCubit extends Cubit<NewsStates>
   void getSports()
   {
     emit(NewsGetLoadingSportsState());
-
     if(sports.length == 0)
     {
       DioHelper.getData(
@@ -100,13 +95,9 @@ class NewsCubit extends Cubit<NewsStates>
         },
       ).then((value)
       {
-       //print(value.data['articles'][0]['title']);
         sports = value.data['articles'];
-       // print(sports[0]['title']);
-
         emit(NewsGetBusinessSucessState());
       }).catchError((error){
-       // print(error.toString());
         emit(NewsGetSportsErrorState(error.toString()));
       });
     } else
@@ -133,13 +124,9 @@ class NewsCubit extends Cubit<NewsStates>
         },
       ).then((value)
       {
-       // print(value.data['articles'][0]['title']);
         science = value.data['articles'];
-       // print(science[0]['title']);
-
         emit(NewsGetScienceSucessState());
       }).catchError((error){
-        //print(error.toString());
         emit(NewsGetScienceErrorState(error.toString()));
       });
     } else
@@ -154,7 +141,6 @@ class NewsCubit extends Cubit<NewsStates>
   void getSearch(String value)
   {
     emit(NewsGetSearchLoadingState());
-   // search=[];
     DioHelper.getData(
       url: 'v2/everything',
       query:
@@ -164,12 +150,9 @@ class NewsCubit extends Cubit<NewsStates>
       },
     ).then((value)
     {
-      //print(value.data['articles'][0]['title']);
       search = value.data['articles'];
-     // print(search[0]['title']);
       emit(NewsGetSearchSuccessState());
     }).catchError((error){
-      print(error.toString());
       emit(NewsGetSearchErrorState(error.toString()));
     });
   }
