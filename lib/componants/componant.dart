@@ -1,5 +1,6 @@
+
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +11,7 @@ Widget defaultNewsItem(article,context) {
       children: [
         Expanded(
           child: CachedNetworkImage(
-            imageUrl: "'https://newsapi.org/'+${article["urlToImage"]}",
+            imageUrl:  "${article["urlToImage"]}",
             imageBuilder: (context, imageProvider) {
               return Container(
                 width: 120,
@@ -48,7 +49,7 @@ Widget defaultNewsItem(article,context) {
                 )),
                 Text(
                   "${article['publishedAt']}",
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.grey),
                 ),
               ],
             ),
@@ -79,3 +80,80 @@ Widget articalBuilder(list,context)=> ConditionalBuilder(
     separatorBuilder: ( context, index)=>myDivider(),),
   fallback:(context)=>Center(
     child: CircularProgressIndicator(),),);
+
+Widget defaultButton({
+  double width = double.infinity,
+  Color background = Colors.blue,
+  bool isUpperCase = true,
+  double radius = 3.0,
+  @required Function function,
+  @required String text,
+}) =>
+    Container(
+      width: width,
+      height: 50.0,
+      child: MaterialButton(
+        onPressed: function,
+        child: Text(
+          isUpperCase ? text.toUpperCase() : text,
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(
+          radius,
+        ),
+        color: background,
+      ),
+    );
+
+Widget defaultFormField({
+  @required TextEditingController controller,
+  @required TextInputType type,
+  Function onSubmit,
+  Function onChange,
+  Function onTap,
+  bool isPassword = false,
+  @required Function validate,
+  @required String label,
+  @required IconData prefix,
+  IconData suffix,
+  Function suffixPressed,
+  bool isClickable = true,
+}) =>
+    TextFormField(
+      controller: controller,
+      keyboardType: type,
+      obscureText: isPassword,
+      enabled: isClickable,
+      onFieldSubmitted: onSubmit,
+      onChanged: onChange,
+      onTap: onTap,
+      validator: validate,
+      decoration: InputDecoration(
+        labelText: label,
+        prefixIcon: Icon(
+          prefix,
+        ),
+        suffixIcon: suffix != null
+            ? IconButton(
+          onPressed: suffixPressed,
+          icon: Icon(
+            suffix,
+          ),
+        )
+            : null,
+        border: OutlineInputBorder(),
+      ),
+    );
+
+void navigateTo(context, widget) => Navigator.push(
+  context,
+  MaterialPageRoute(
+    builder: (context) => widget,
+  ),
+);
+
+

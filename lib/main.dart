@@ -9,6 +9,7 @@ import 'package:news_app/data/local/cache_helper.dart';
 import 'package:news_app/data/remote/dio_helper.dart';
 import 'package:news_app/view/home_page.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   DioHelper.init();
@@ -25,8 +26,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (BuildContext context)=>AppCubit()..changeAppMode(fromShared: isDark),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create:(context)=> NewsCubit()..getBusiness()),
+        BlocProvider(create: (context)=>AppCubit()..changeAppMode(fromShared: isDark),),
+      ],
       child: BlocConsumer<AppCubit,NewsStates>(
         listener:(context,state){
         } ,
@@ -60,6 +64,7 @@ class MyApp extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                       color: Colors.black
                   ),
+
                 ),
               ),
               darkTheme:  ThemeData(
@@ -89,6 +94,8 @@ class MyApp extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                       color: Colors.white
                   ),
+
+
                 ),
               ),
               themeMode: AppCubit.get(context).isDark ? ThemeMode.dark: ThemeMode.light,
