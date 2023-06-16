@@ -10,7 +10,7 @@ Widget defaultNewsItem(article,context) {
       children: [
         Expanded(
           child: CachedNetworkImage(
-            imageUrl: "${article["urlToImage"]}",
+            imageUrl: "'https://newsapi.org/'+${article["urlToImage"]}",
             imageBuilder: (context, imageProvider) {
               return Container(
                 width: 120,
