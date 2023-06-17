@@ -168,3 +168,70 @@ void navigateTo(context, widget) => Navigator.push(
 );
 
 
+
+Widget ArticleItem(article, context) {
+  String publishedAt = article['publishedAt'] , date = '' , time = '';
+  for(int i = 0 ; i < publishedAt.length ; ++i){
+    if(publishedAt[i] == 'T'){
+      date = publishedAt.substring(0,i);
+      time = publishedAt.substring(i+1 , publishedAt.length-1);
+      break;
+    }
+  }
+  return InkWell(
+    onTap: () {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => WebViewScreen(article['url']),
+          ));
+    },
+    child: Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Container(
+        height: 100.0,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Expanded(
+              child:
+              Text(
+                '${article['title']}',
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+            ),
+
+            Text(
+              '${article['author']}',
+              style: TextStyle(
+                color: Colors.black45,
+                fontSize: 16,
+                fontWeight: FontWeight.w400
+
+              ),
+            ),
+            Text(
+              '${date + ' - ' + time}',
+              style: TextStyle(
+                color: Colors.grey,
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+Widget articalBuilder2(list,context,{isSearch=false})=> ConditionalBuilder(
+  condition: list.length>0,
+  builder: (context)=> ListView.separated(
+    physics: BouncingScrollPhysics(),
+    itemBuilder:(context,index) => ArticleItem(list[index],context),
+    itemCount: 15,
+    separatorBuilder: ( context, index)=>myDivider(),),
+  fallback:(context)=>isSearch? Container(): Center(
+    child: CircularProgressIndicator(),),);

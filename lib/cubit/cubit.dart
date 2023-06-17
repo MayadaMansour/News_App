@@ -72,6 +72,7 @@ class NewsCubit extends Cubit<NewsStates>
     ).then((value)
     {
       business = value.data['articles'];
+      print(value.data['articles'][0]);
       emit(NewsGetBusinessSucessState());
     }).catchError((error){
       emit(NewsGetBusinessErrorState(error.toString()));
@@ -96,6 +97,7 @@ class NewsCubit extends Cubit<NewsStates>
       ).then((value)
       {
         sports = value.data['articles'];
+        print(value.data['articles'][0]);
         emit(NewsGetBusinessSucessState());
       }).catchError((error){
         emit(NewsGetSportsErrorState(error.toString()));
@@ -125,6 +127,7 @@ class NewsCubit extends Cubit<NewsStates>
       ).then((value)
       {
         science = value.data['articles'];
+        print(value.data['articles'][0]);
         emit(NewsGetScienceSucessState());
       }).catchError((error){
         emit(NewsGetScienceErrorState(error.toString()));
@@ -151,6 +154,7 @@ class NewsCubit extends Cubit<NewsStates>
     ).then((value)
     {
       search = value.data['articles'];
+      print(value.data['articles'][0]);
       emit(NewsGetSearchSuccessState());
     }).catchError((error){
       emit(NewsGetSearchErrorState(error.toString()));

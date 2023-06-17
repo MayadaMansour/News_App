@@ -43,12 +43,12 @@ class MyApp extends StatelessWidget {
                 appBarTheme: AppBarTheme(
                   backwardsCompatibility: false,
                   systemOverlayStyle: SystemUiOverlayStyle(
-                      statusBarColor: Colors.white,
+                      statusBarColor: Colors.deepOrange,
                       statusBarBrightness: Brightness.dark
                   ),
-                  elevation: 0.0,
-                  backgroundColor: Colors.white,
-                  titleTextStyle: TextStyle(color: Colors.black,fontSize: 25,fontWeight: FontWeight.bold),
+                  elevation: 3.0,
+                  backgroundColor: Colors.deepOrange,
+                  titleTextStyle: TextStyle(color: Colors.white,fontSize: 25,fontWeight: FontWeight.bold),
                   iconTheme: IconThemeData(color: Colors.grey),
                 ),
                 bottomNavigationBarTheme: BottomNavigationBarThemeData(
